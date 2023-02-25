@@ -8,11 +8,14 @@
         $result = mysqli_fetch_array(mysqli_query($connect, $check));
 
         if(isset($result)){
-            $response['value']=0;
+            $response['value']=1;
             $response['messege']="login succesfully";
+            $response['username']= $result["username"];
+            $response['email']= $result["email"];
+            $response['id_users']= $result["id_users"];
             echo json_encode($response);
         } else {
-            $response['value']=1;
+            $response['value']=0;
             $response['messege']="login denied";
             echo json_encode($response);
         }

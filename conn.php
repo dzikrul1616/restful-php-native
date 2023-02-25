@@ -6,6 +6,6 @@
 
     $conn = mysqli_connect ($servename, $username, $password, $databasename);
     if (!$conn){
-        die("KOenksi tidak berhasil");
+        die("Konenksi tidak berhasil");
     }
 ?>

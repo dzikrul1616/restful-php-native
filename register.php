@@ -1,20 +1,26 @@
-<?php 
-require "../newsapp/connect.php";
- if ($_SERVER['REQUEST_METHOD']=="POST") {
-    $response = array();
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = md5($_POST['password']);
+<?php
+ include "conn.php";
 
-    $insert = "INSERT INTO tbl_users VALUE(NULL, '$username','$email','$password','1',NOW())";
-    if (mysqli_query($connect, $insert)){
-        $response ['value']=1;
-        $response ['messege']="Register Succesfully";
-        echo json_encode($response);
-    } else {
-        $response['value']=0;
-        $response['messege']="Register not Successfully";
-        echo json_encode($response);
-    }
+ $username = isset ($_POST['username']) ? $_POST['username'] : "";
+ $email = isset ($_POST['email']) ? $_POST['email'] : "";
+ $password = md5($_POST['password']);
+ $level = isset ($_POST['level']) ? $_POST['level'] : "";
+ $tanggal = date('Y/m/d H:i:s');
+
+ $sql = "INSERT INTO `tbl_users` (`id_users`, `username`, `email`, `password`, `level`, `register_date`) 
+ VALUES ('', '".$username."', '".$email."', '".$password."', '".$level."','".$tanggal."');";
+
+ $query = mysqli_query ($conn, $sql);
+ if ($query){
+    $msg = "Tersimpan";
+ } else {
+    $msg = "Gagal";
  }
+
+ $response = array (
+    'status'=>'OK',
+    'msg'=> $msg
+ );
+
+echo json_encode($response);
 ?>
